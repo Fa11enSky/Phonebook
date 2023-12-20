@@ -1,9 +1,16 @@
 import { useState } from 'react';
-import css from './contactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'store/operations';
 import { selectContacts } from 'store/selectors';
-const ContactForm = ({ updateContacts }) => {
+import {
+  Button,
+  Center,
+  FormControl,
+  FormLabel,
+  Input,
+} from '@chakra-ui/react';
+
+const ContactForm = ({close }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const contacts = useSelector(selectContacts);
@@ -13,7 +20,7 @@ const ContactForm = ({ updateContacts }) => {
       setName(ev.target.value);
       return;
     }
-    if (ev.target.name === 'number') {
+    if (ev.target.name === 'phone') {
       setPhone(ev.target.value);
       return;
     }
@@ -33,35 +40,31 @@ const ContactForm = ({ updateContacts }) => {
       return;
     }
     dispatch(addContact(newContact));
-
+    close()
     ev.target.reset();
   };
   return (
-    <form className={css.main_form} onSubmit={handleSubmit}>
-      <label className={css.label}>
-        Name
-        <input
-          className={css.contact_input}
-          onInput={handleInput}
-          type="text"
-          name="name"
-          required
-        />
-      </label>
-      <label className={css.label}>
-        Number
-        <input
-          className={css.contact_input}
-          type="tel"
-          name="number"
-          required
-          onInput={handleInput}
-        />
-      </label>
-
-      <button className={css.contact_btn} type="submit">
-        Add contact
-      </button>
+    <form
+      style={{
+        maxWidth: '650px',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+      }}
+      onSubmit={handleSubmit}
+    >
+      <FormControl isRequired="true">
+        <FormLabel>Name</FormLabel>
+        <Input required name="name" type="text" onInput={handleInput} />
+      </FormControl>
+      <FormControl isRequired="true">
+        <FormLabel>Phone number</FormLabel>
+        <Input required name="phone" type="phone" onInput={handleInput} />
+      </FormControl>
+      <Center>
+        <Button colorScheme="blue" mt={5} type="submit">
+          Add contact
+        </Button>
+      </Center>
     </form>
   );
 };
