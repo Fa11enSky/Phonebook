@@ -1,4 +1,4 @@
-import { filterUse } from 'store/filterSlice';
+import { filterUse } from 'store/contacts/filterSlice';
 import { useDispatch } from 'react-redux';
 import { Container, FormControl, FormLabel, Input } from '@chakra-ui/react';
 const Filter = () => {

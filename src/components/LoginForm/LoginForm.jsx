@@ -7,18 +7,53 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
+  Spinner,
   Text,
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-
+import { useState } from 'react';
+import { logIn } from 'store/auth/operations';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { selectFetching } from 'store/auth/selectors';
 export const LoginForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const fetching = useSelector(selectFetching);
   const handleNavigate = () => {
     navigate('/', { replace: true });
   };
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(!show);
+  const handleInput = ev => {
+    switch (ev.target.name) {
+      case 'email':
+        setEmail(ev.target.value);
+        break;
+
+      case 'password':
+        setPassword(ev.target.value);
+        break;
+
+      default:
+        break;
+    }
+  };
+  const handleSubmit = ev => {
+    ev.preventDefault();
+    const user = {
+      email,
+      password,
+    };
+    dispatch(logIn(user));
+  };
   return (
     <Container pt={30}>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Box
           padding="15px"
           maxWidth={500}
@@ -30,16 +65,32 @@ export const LoginForm = () => {
           </Text>
           <FormControl isRequired>
             <FormLabel fontSize={24}>Your email</FormLabel>
-            <Input type="email" />
+            <Input onInput={handleInput} name="email" type="email" />
             <FormHelperText>We'll never share your email.</FormHelperText>
           </FormControl>
           <FormControl mb={15} isRequired>
             <FormLabel fontSize={24}>Your password</FormLabel>
-            <Input type="password" />
+            <InputGroup size="md">
+              <Input
+                minLength={8}
+                name="password"
+                onInput={handleInput}
+                pr="4.5rem"
+                type={show ? 'text' : 'password'}
+                placeholder="Enter password"
+              />
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleShow}>
+                  {show ? 'Hide' : 'Show'}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
           </FormControl>
           <ButtonGroup gap={15}>
-            <Button colorScheme="green">Login</Button>
-            <Button colorScheme="blue" onClick={handleNavigate}>
+            <Button width={73} type="submit" colorScheme="green">
+              {fetching ? <Spinner /> : 'Login'}
+            </Button>
+            <Button type="button" colorScheme="blue" onClick={handleNavigate}>
               Back
             </Button>
           </ButtonGroup>

@@ -5,7 +5,7 @@ import Filter from 'components/Filter/Filter';
 import Loader from 'components/Loader/Loader';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectIsLoading } from 'store/selectors';
+import { selectIsLoading } from 'store/contacts/selectors';
 
 export const Contacts = () => {
   const isLoading = useSelector(selectIsLoading);

@@ -22,6 +22,7 @@ export function AddContactModal() {
         ml="auto"
         leftIcon={<AddIcon />}
         colorScheme="blue"
+        
         onClick={onOpen}
       >
         Add Contact

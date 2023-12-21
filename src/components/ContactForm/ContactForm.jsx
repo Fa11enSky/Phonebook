@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'store/operations';
-import { selectContacts } from 'store/selectors';
+import { addContact } from 'store/contacts/operations';
+import { selectContacts } from 'store/contacts/selectors';
 import {
   Button,
   Center,
@@ -10,7 +10,7 @@ import {
   Input,
 } from '@chakra-ui/react';
 
-const ContactForm = ({close }) => {
+const ContactForm = ({ close }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const contacts = useSelector(selectContacts);
@@ -29,7 +29,7 @@ const ContactForm = ({close }) => {
     ev.preventDefault();
     const newContact = {
       name,
-      phone,
+      number:phone,
     };
     if (
       contacts.find(
@@ -40,7 +40,7 @@ const ContactForm = ({close }) => {
       return;
     }
     dispatch(addContact(newContact));
-    close()
+    close();
     ev.target.reset();
   };
   return (
