@@ -1,36 +1,35 @@
-import ContactList from './ContactList/ContactList';
-import Filter from './Filter/Filter';
-import ContactForm from './ContactForm/ContactForm';
-import { selectIsLoading } from 'store/selectors';
-import { useSelector } from 'react-redux';
+import { ChakraProvider } from '@chakra-ui/react';
+import { Route, Routes } from 'react-router-dom';
+import { Suspense, lazy,useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsRefreshing } from 'store/auth/selectors';
+import { refreshUser } from 'store/auth/operations';
 import Loader from './Loader/Loader';
+const Layout =lazy(()=>import('./Layout/Layout')) 
+const Register =lazy(()=>import('../pages/Register'))
+const Login =lazy(()=>import('../pages/Login'))
+const Contacts = lazy(()=>import('../pages/Contacts'))
 const App = () => {
-  const isLoading=useSelector(selectIsLoading)
-  return (
-    <div>
-      <h1
-        style={{
-          fontSize: '45px',
-          textAlign: 'center',
-          marginBottom: '20px',
-        }}
-      >
-        Phonebook
-      </h1>
-      <ContactForm />
-      <h2
-        style={{
-          fontSize: '40px',
-          marginBottom: '10px',
-          textAlign: 'center',
-        }}
-      >
-        Contacts
-      </h2>
-      <Filter />
-      {isLoading &&<Loader/>}
-      <ContactList />
-    </div>
+  const isRefreshing= useSelector(selectIsRefreshing)
+  const dispatch = useDispatch()
+  useEffect(() => {
+  dispatch(refreshUser())
+},[dispatch])
+  return isRefreshing?<Loader/>: (
+    <ChakraProvider>
+      <>
+        <Suspense>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Contacts />} />
+              <Route path="*" element={<div>not....</div>} />
+            </Route>
+            <Route path='login' element={<Login />} />
+            <Route path='register' element={<Register/>}/>
+          </Routes>
+        </Suspense>
+      </>
+    </ChakraProvider>
   );
 };
 export default App;
