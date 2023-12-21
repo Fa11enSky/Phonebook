@@ -1,34 +1,22 @@
-import ContactList from './ContactList/ContactList';
-import Filter from './Filter/Filter';
-import { selectIsLoading } from 'store/selectors';
-import { useSelector } from 'react-redux';
-import Loader from './Loader/Loader';
-import { ChakraProvider, Container } from '@chakra-ui/react';
-import Header from './Header/Header';
-import { AddContactModal } from './AddContactModal/AddContactModal';
+import { ChakraProvider } from '@chakra-ui/react';
+import { Route, Routes } from 'react-router-dom';
+import Contacts from 'pages/Contacts';
+import Layout from './Layout/Layout';
+import Register from 'pages/Register';
+import Login from 'pages/Login';
 const App = () => {
-  const isLoading = useSelector(selectIsLoading);
   return (
     <ChakraProvider>
-      <div>
-        <Header />
-
-        <Container maxW="1000px">
-          <AddContactModal />
-        </Container>
-        <h2
-          style={{
-            fontSize: '40px',
-            marginBottom: '10px',
-            textAlign: 'center',
-          }}
-        >
-          Contacts
-        </h2>
-        <Filter />
-        {isLoading && <Loader />}
-        <ContactList />
-      </div>
+      <>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Contacts />} />
+            <Route path="*" element={<div>not....</div>} />
+          </Route>
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register/>}/>
+        </Routes>
+      </>
     </ChakraProvider>
   );
 };

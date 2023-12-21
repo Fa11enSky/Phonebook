@@ -13,8 +13,9 @@ import { Flex, Spacer } from '@chakra-ui/react';
 import { LockIcon, AddIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { FaRegUser } from 'react-icons/fa';
 import { IoIosLogOut } from 'react-icons/io';
-
+import { useNavigate } from 'react-router-dom';
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <header>
       <Container
@@ -24,12 +25,27 @@ const Header = () => {
         color="white"
         bg="blue.600"
       >
+        {/* Тут прописані інлайнові колбеки навігації */}
         <Flex alignItems="center">
           <Text fontSize="6xl">Phonebook</Text>
           <Spacer />
           <ButtonGroup gap="2">
-            <Button leftIcon={<LockIcon />}> Sing Up</Button>
-            <Button colorScheme="red" leftIcon={<AddIcon />}>
+            <Button
+              onClick={() => {
+                navigate('/login');
+              }}
+              leftIcon={<LockIcon />}
+            >
+              {' '}
+              Sing Up
+            </Button>
+            <Button
+              onClick={() => {
+                navigate('/register');
+              }}
+              colorScheme="red"
+              leftIcon={<AddIcon />}
+            >
               Sing In
             </Button>
           </ButtonGroup>

@@ -29,7 +29,7 @@ const ContactList = () => {
       <TableContainer>
         <Table>
           <Thead>
-            <Tr>
+            <Tr bg="#c0d4e0">
               <Th>Name</Th>
               <Th>number</Th>
               <Th textAlign="right">options</Th>
