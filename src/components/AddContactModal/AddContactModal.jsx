@@ -22,13 +22,12 @@ export function AddContactModal() {
         ml="auto"
         leftIcon={<AddIcon />}
         colorScheme="blue"
-        
         onClick={onOpen}
       >
         Add Contact
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal  isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Add Contact</ModalHeader>

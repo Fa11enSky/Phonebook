@@ -23,7 +23,7 @@ const UserMenu = () => {
   };
   return (
     <Box display="flex" alignItems="center" gap={10}>
-      <Text fontWeight='500'  fontSize="3xl">
+      <Text fontWeight='500'  fontSize="2xl">
         Hello {user.name}
       </Text>
       <Menu>
@@ -36,6 +36,7 @@ const UserMenu = () => {
             as={Button}
             icon={<IoIosLogOut />}
             color="red"
+            zIndex={1000}
           >
             Log out
           </MenuItem>

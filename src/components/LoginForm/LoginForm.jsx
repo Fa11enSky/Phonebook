@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
   ButtonGroup,
@@ -17,12 +21,13 @@ import { useState } from 'react';
 import { logIn } from 'store/auth/operations';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { selectFetching } from 'store/auth/selectors';
+import { selectError, selectFetching } from 'store/auth/selectors';
 export const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const error=useSelector(selectError)
   const fetching = useSelector(selectFetching);
   const handleNavigate = () => {
     navigate('/', { replace: true });
@@ -63,6 +68,13 @@ export const LoginForm = () => {
           <Text fontSize="3xl" fontWeight={500}>
             Login
           </Text>
+          {error.length > 0 && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
           <FormControl isRequired>
             <FormLabel fontSize={24}>Your email</FormLabel>
             <Input onInput={handleInput} name="email" type="email" />
