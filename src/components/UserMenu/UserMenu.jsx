@@ -24,7 +24,7 @@ const UserMenu = () => {
   return (
     <Box display="flex" alignItems="center" gap={10}>
       <Text fontWeight='500'  fontSize="2xl">
-        Hello {user.name}
+        Hello, {user.email}
       </Text>
       <Menu>
         <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
