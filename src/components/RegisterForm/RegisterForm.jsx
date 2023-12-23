@@ -11,6 +11,7 @@ import {
   InputRightElement,
   Spinner,
   Text,
+ 
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +26,7 @@ export const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
+
   const handleNavigate = () => {
     navigate('/', { replace: true });
   };
@@ -46,9 +48,9 @@ export const RegisterForm = () => {
         break;
     }
   };
+
   const handleSubmit = ev => {
     ev.preventDefault();
-    console.log(ev);
     const user = { name, email, password };
     dispatch(register(user));
     ev.target.reset();
@@ -111,6 +113,7 @@ export const RegisterForm = () => {
               Back
             </Button>
           </ButtonGroup>
+          
         </Box>
       </form>
     </Container>
