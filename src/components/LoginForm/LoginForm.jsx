@@ -5,7 +5,6 @@ import {
   AlertTitle,
   Box,
   Button,
-  ButtonGroup,
   Container,
   FormControl,
   FormHelperText,
@@ -30,7 +29,7 @@ export const LoginForm = () => {
   const error=useSelector(selectError)
   const fetching = useSelector(selectFetching);
   const handleNavigate = () => {
-    navigate('/', { replace: true });
+    navigate('/register', { replace: true });
   };
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
@@ -98,14 +97,14 @@ export const LoginForm = () => {
               </InputRightElement>
             </InputGroup>
           </FormControl>
-          <ButtonGroup gap={15}>
-            <Button width={73} type="submit" colorScheme="green">
-              {fetching ? <Spinner /> : 'Login'}
-            </Button>
-            <Button type="button" colorScheme="blue" onClick={handleNavigate}>
-              Back
-            </Button>
-          </ButtonGroup>
+          <Button width={73} type="submit" colorScheme="green">
+            {fetching ? <Spinner /> : 'Login'}
+          </Button>
+          <Box display='flex' justifyContent='flex-end'>
+            <Text cursor='pointer' color='blue' as="span" onClick={handleNavigate}>
+              "Do you not have an account?"
+            </Text>
+          </Box>
         </Box>
       </form>
     </Container>

@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Container,
   FormControl,
   FormHelperText,
@@ -11,7 +10,6 @@ import {
   InputRightElement,
   Spinner,
   Text,
- 
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +26,7 @@ export const RegisterForm = () => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate('/', { replace: true });
+    navigate('/login', { replace: true });
   };
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
@@ -105,15 +103,15 @@ export const RegisterForm = () => {
               </InputRightElement>
             </InputGroup>
           </FormControl>
-          <ButtonGroup gap={15}>
-            <Button width={91} colorScheme="green" type="submit">
-              {fetching ? <Spinner /> : 'Register'}
-            </Button>
-            <Button colorScheme="blue" type="button" onClick={handleNavigate}>
-              Back
-            </Button>
-          </ButtonGroup>
-          
+
+          <Button width={91} colorScheme="green" type="submit">
+            {fetching ? <Spinner /> : 'Register'}
+          </Button>
+          <Box display='flex' justifyContent='flex-end'>
+            <Text as='span' color="blue" cursor='pointer' onClick={handleNavigate}>
+              Have you already registered?
+            </Text>{' '}
+          </Box>
         </Box>
       </form>
     </Container>
