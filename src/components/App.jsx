@@ -19,7 +19,7 @@ const App = () => {
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
-  
+
   return isRefreshing ? (
     <Loader />
   ) : (
@@ -40,35 +40,34 @@ const App = () => {
               path="contacts"
               element={<PrivateRoute redirectTo="/" component={<Contacts />} />}
             />
+            <Route
+              path="login"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={
+                    <Suspense>
+                      <Login />
+                    </Suspense>
+                  }
+                />
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <RestrictedRoute
+                  redirectTo="/contacts"
+                  component={
+                    <Suspense>
+                      <Register />
+                    </Suspense>
+                  }
+                />
+              }
+            />
             <Route path="*" element={<div>not....</div>} />
           </Route>
-
-          <Route
-            path="login"
-            element={
-              <RestrictedRoute
-                redirectTo="/contacts"
-                component={
-                  <Suspense>
-                    <Login />
-                  </Suspense>
-                }
-              />
-            }
-          />
-          <Route
-            path="register"
-            element={
-              <RestrictedRoute
-                redirectTo="/contacts"
-                component={
-                  <Suspense>
-                    <Register />
-                  </Suspense>
-                }
-              />
-            }
-          />
         </Routes>
       </>
     </ChakraProvider>
